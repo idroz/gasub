@@ -1,4 +1,5 @@
 library(igraph)
+library(ga)
 # Scoring Functions for Subgraph extraction #####
 get.neighborhood.weights <- function(x, weight){
   return(sum(weight[x]))
