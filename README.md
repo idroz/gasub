@@ -6,6 +6,7 @@ library(devtools)
 install_git("https://github.com/idroz/gasub")
 
 ## Usage
+```
 library(gasub)
 
 g <- graph.lattice(dimvector = c(5,6))
@@ -17,3 +18,4 @@ seed <- V(g)$weights
 names(seed) <- V(g)$name
 
 ga <- extract_subgraph(g, seed, parallel = 4)
+```
