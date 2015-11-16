@@ -4,7 +4,7 @@ R package for extraction of active subnetworks using a global search algorithm
 ## Installation
 ```
 library(devtools)
-install_git("idroz/gasub")
+install_git("https://github.com/idroz/gasub")
 ```
 
 ## Usage
