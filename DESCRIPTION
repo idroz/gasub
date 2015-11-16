@@ -3,6 +3,6 @@ Title: R package for extraction of active subnetworks using a global search algo
 Version: 0.0.0.9000
 Authors@R: person("Ignat", "Drozdov", email = "idrozdov@beringresearch.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph)
-Depends: R (>= 3.2.2)
+Depends: R (>= 3.2.2), GA (== 2.2), igraph (== 1.0.1)
 License: What license is it under?
 LazyData: true
