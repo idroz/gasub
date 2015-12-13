@@ -10,14 +10,17 @@ install_git("https://github.com/idroz/gasub")
 ## Usage
 ```
 library(gasub)
+library(igraph)
 
 g <- graph.lattice(dimvector = c(5,6))
+V(g)$name <- seq_len(vcount(g))
 weights <- runif(n = vcount(g), min = 0, max = 1)
-V(g)$weights <- weights
-V(g)$name <- as.character(1:vcount(g))
 
-seed <- V(g)$weights
+seed <- weights
 names(seed) <- V(g)$name
 
-ga <- extract_subgraph(g, seed, parallel = 4)
+ga <- ga_subgraph(g, v = seed, parallel = 4)
+
+ggnet(ga, node.col = seed[V(ga)$name], node.size = seed[V(ga)$name])
+
 ```
