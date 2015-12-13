@@ -31,11 +31,11 @@ ggnet <- function(g, node.size = NA, node.col, node.alpha = 0.5, low.col = "blue
   res$to.y <- xy$V2[match(res$to, xy$name)]
 
   gnet <- ggplot2::ggplot() +
-          geom_segment(data = res, aes(x=from.x,xend = to.x, y=from.y,yend = to.y)) +
-          geom_point(data = xy, alpha = node.alpha, aes(x = V1, y = V2, size = node.size, colour = node.col)) +
-          scale_colour_gradient(limits=c(min(node.col), max(node.col)), low=low.col, high = high.col) +
-          xlab("") + ylab("") +
-          theme(legend.position="none", panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_blank(), axis.ticks = element_blank(), axis.text.x = element_blank(), axis.text.y = element_blank())
+          ggplot2::geom_segment(data = res, ggplot2::aes(x=from.x,xend = to.x, y=from.y,yend = to.y)) +
+          ggplot2::geom_point(data = xy, alpha = node.alpha, ggplot2::aes(x = V1, y = V2, size = node.size, colour = node.col)) +
+          ggplot2::scale_colour_gradient(limits=c(min(node.col), max(node.col)), low=low.col, high = high.col) +
+          ggplot2::xlab("") + ggplot2::ylab("") +
+          ggplot2::theme(legend.position="none", panel.grid.major = ggplot2::element_blank(), panel.grid.minor = ggplot2::element_blank(), panel.background = ggplot2::element_blank(), axis.line = ggplot2::element_blank(), axis.ticks = ggplot2::element_blank(), axis.text.x = ggplot2::element_blank(), axis.text.y = ggplot2::element_blank())
 
   return(gnet)
 }
