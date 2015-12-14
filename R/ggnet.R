@@ -9,9 +9,13 @@
 #'
 #' @export
 
-ggnet <- function(g, node.size = NA, node.col, node.alpha = 0.5, low.col = "blue", high.col = "red", edge.width, edge.col){
+ggnet <- function(g, node.size = NA, node.col = NA, node.alpha = 0.5, low.col = "blue", high.col = "red", edge.width, edge.col){
 
   if( !class(g)=="igraph" ) stop("Input must be an igraph object")
+
+  if( is.null(igraph::V(g)$name) ) igraph::V(g)$name <- seq_len(igraph::vcount(g))
+
+  if( is.na(node.col)) node.col <- rep(1, igraph::vcount(g))
 
   if (length(node.col) != igraph::vcount(g)) stop("length(node.col) must equal the number of vertices in g")
 
