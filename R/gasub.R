@@ -41,10 +41,18 @@
 ga_subgraph <- function(graph, v, run = 50, maxiter = 100000, parallel = 2, ...){
   .check_input_params(graph, v)
 
-  #Replace absent seed nodes with 0
+  # Remove seed nodes that are not in the graph
+  v <- v[ names(v) %in% igraph::V(graph)$name ]
+
+  # Replace absent seed nodes with 0
   full_seed = rep(0, igraph::vcount(graph))
   names(full_seed) <- igraph::V(graph)$name
-  full_seed[match(names(v), igraph::V(graph)$name)] <- v
+
+  # Remove NA indeces
+  ix <- match(names(v), igraph::V(graph)$name)
+  ix <- ix[!is.na(ix)]
+
+  full_seed[ix] <- v
 
   GA <- GA::ga(type = "binary", fitness = .fitness, G = graph, W = full_seed, nBits = igraph::vcount(graph), seed = 123, run = run, maxiter = maxiter, parallel = parallel, ...)
   sub.g <- igraph::induced_subgraph(graph, which(GA@solution[1,]==1))
