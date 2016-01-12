@@ -6,7 +6,7 @@ Authors@R: person("Ignat", "Drozdov", email = "idrozdov@beringresearch.com", rol
 Description: Perform unsupervised extraction of highly weighted subnetworks
 Copyright: Bering Limited
 Depends:
-    R (>= 3.2.2)
+    R (>= 3.2.1)
 Imports:
     GA,
     igraph,

@@ -4,8 +4,8 @@
 \alias{ggnet}
 \title{Plot a network using ggplot2}
 \usage{
-ggnet(g, node.size = NA, node.col, node.alpha = 0.5, low.col = "blue",
-  high.col = "red", edge.width, edge.col)
+ggnet(g, node.size = NA, node.col = NA, node.alpha = 0.5,
+  low.col = "blue", high.col = "red", edge.width, edge.col)
 }
 \arguments{
 \item{g}{igraph object}
