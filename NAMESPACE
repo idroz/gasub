@@ -2,3 +2,5 @@
 
 export(gaSubgraph)
 export(ggnet)
+export(graphPrecision)
+export(graphRecall)

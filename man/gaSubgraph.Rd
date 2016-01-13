@@ -4,8 +4,8 @@
 \alias{gaSubgraph}
 \title{Extract an active subnetwork using Genetic Algorithm scoring function optimisation}
 \usage{
-gaSubgraph(graph, v, optim = "weight", run = 50, maxiter = 1e+05,
-  parallel = 2, ...)
+gaSubgraph(graph, v, activity.fun = .weight_fitness, run = 50,
+  maxiter = 1e+05, parallel = 2, ...)
 }
 \arguments{
 \item{graph}{input igraph object}
