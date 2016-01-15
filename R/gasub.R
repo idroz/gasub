@@ -17,7 +17,7 @@
 #'                  functionality is available, while on Unix/Linux/Mac OSX both
 #'                  'snow' and 'multicore' (default) functionalities are
 #'                  available.
-#' @param ...       additional arguments to be passed to GA:ga(function)
+#' @param ...       additional arguments to be passed to ga() function
 #' @export
 
 gaSubgraph <- function(graph, v, activity.fun = .weight_fitness, run = 50, maxiter = 100000, parallel = 2, ...){
@@ -39,7 +39,8 @@ gaSubgraph <- function(graph, v, activity.fun = .weight_fitness, run = 50, maxit
   full.seed[ix] <- v
 
 
-  GA <- GA::ga(type = "binary", fitness = activity.fun, G = graph, W = full.seed, nBits = igraph::vcount(graph), seed = 123, run = run, maxiter = maxiter, parallel = parallel, ...)
+  #GA <- GA::ga(type = "binary", fitness = activity.fun, G = graph, W = full.seed, nBits = igraph::vcount(graph), seed = 123, run = run, maxiter = maxiter, parallel = parallel, ...)
+  GA <- ga(fitness = activity.fun, G = graph, W = full.seed, nBits = igraph::vcount(graph), seed = 123, run = run, maxiter = maxiter, parallel = parallel, ...)
 
   sub.g <- igraph::induced_subgraph(graph, which(GA@solution[1,]==1))
 

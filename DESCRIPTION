@@ -5,12 +5,9 @@ Version: 0.0.0.9000
 Authors@R: person("Ignat", "Drozdov", email = "idrozdov@beringresearch.com", role = c("aut", "cre"))
 Description: Perform unsupervised extraction of highly weighted subnetworks
 Copyright: Bering Limited
-Depends:
-    R (>= 3.2.1)
-Imports:
-    GA,
-    igraph,
-    ggplot2
+Depends: R (>= 3.2.1), methods, foreach, iterators
+Suggests: parallel, doParallel
+Imports: igraph, ggplot2
 License: Apache License (== 2.0)
 LazyData: true
 RoxygenNote: 5.0.1.9000

@@ -6,7 +6,8 @@
   sub.index <- which(sub == 1)
   sub.g <- igraph::induced_subgraph(G, sub.index)
 
-  sum(igraph::V(sub.g)$W * unlist(lapply(igraph::neighborhood(sub.g, 1), .get_neighborhood_weights, weight = igraph::V(sub.g)$W))) / sqrt(igraph::vcount(sub.g))
+  neighbor.weights <- unlist(lapply(igraph::neighborhood(sub.g, 1), .get_neighborhood_weights, weight = igraph::V(sub.g)$W))
+  sum(igraph::V(sub.g)$W * neighbor.weights) / sqrt(igraph::vcount(sub.g))
 }
 
 .get_neighborhood_weights <- function(x, weight){
