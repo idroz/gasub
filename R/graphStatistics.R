@@ -5,7 +5,11 @@
 #' @export
 
 graphPrecision <- function(predicted, actual){
-  igraph::vcount(igraph::graph.intersection(actual, predicted, keep.all.vertices = FALSE))/igraph::vcount(igraph::graph.union(actual, predicted))
+
+  tp <- igraph::ecount(igraph::graph.intersection(actual, predicted, keep.all.vertices = FALSE))
+  fp <- igraph::ecount(igraph::graph.difference(predicted, actual))
+
+  tp/(tp + fp)
 }
 
 #' Compute network recall
@@ -15,5 +19,8 @@ graphPrecision <- function(predicted, actual){
 #' @export
 
 graphRecall <- function(predicted, actual){
-  igraph::vcount(igraph::graph.intersection(actual, predicted, keep.all.vertices = FALSE))/igraph::vcount(actual)
+  tp <- igraph::ecount(igraph::graph.intersection(actual, predicted, keep.all.vertices = FALSE))
+  fn <- igraph::ecount(igraph::graph.difference(actual, predicted))
+
+  tp/(tp + fn)
 }

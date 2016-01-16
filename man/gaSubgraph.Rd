@@ -30,7 +30,7 @@ functionality is available, while on Unix/Linux/Mac OSX both
 'snow' and 'multicore' (default) functionalities are
 available.}
 
-\item{...}{additional arguments to be passed to GA:ga(function)}
+\item{...}{additional arguments to be passed to ga() function}
 }
 \description{
 Extract an active subnetwork using Genetic Algorithm scoring function optimisation
