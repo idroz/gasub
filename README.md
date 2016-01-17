@@ -19,8 +19,8 @@ weights <- runif(n = vcount(g), min = 0, max = 1)
 seed <- weights
 names(seed) <- V(g)$name
 
-ga <- ga_subgraph(g, v = seed, parallel = 4)
+ga <- gaSubgraph(g, weights = seed, parallel = 4)
 
-ggnet(ga, node.col = seed[V(ga)$name], node.size = seed[V(ga)$name])
+ggnet(ga)
 
 ```
