@@ -268,8 +268,8 @@ function(object, ...)
 gaMonitor <- function(object, digits = getOption("digits"), ...)
 {
   fitness <- na.exclude(object@fitness)
-  cat(paste("Iter =", object@iter,
-            " | Fitness =", format(max(fitness), digits = digits), "\n"))
+  cat(paste("Iteration: ", object@iter,
+            " | Fitness: ", format(max(fitness), digits = digits), "\n"))
 }
 
 gaSummary <- function(x, ...)
