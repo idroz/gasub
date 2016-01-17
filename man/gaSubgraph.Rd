@@ -4,18 +4,24 @@
 \alias{gaSubgraph}
 \title{Extract an active subnetwork using Genetic Algorithm scoring function optimisation}
 \usage{
-gaSubgraph(graph, v, activity.fun = .weight_fitness, run = 50,
-  maxiter = 1e+05, parallel = 2, ...)
+gaSubgraph(graph, weights, activity.fun = .weight_fitness, run = 50,
+  init.threshold = NULL, maxiter = 1e+05, parallel = 2, ...)
 }
 \arguments{
 \item{graph}{input igraph object}
 
-\item{v}{named vector of node weights. Vector names must match igraph node
+\item{weights}{named vector of node weights. Vector names must match igraph node
 NAME attribute. In an input graph, nodes not found in V will be
 assigned a weight of 0.}
 
+\item{activity.fun}{s   coring function to be maximised}
+
 \item{run}{the number of consecutive generations without any improvement
 in the best finess value before the GA is stopped}
+
+\item{init.threshold}{initial weight threshold above which weights are significant.
+optional parameter that speeds up training. If omitted, algorithm
+still converges accurately, albeit slower.}
 
 \item{maxiter}{the maximum number of iterations to run before the GA search
 is halted.}
@@ -30,7 +36,7 @@ functionality is available, while on Unix/Linux/Mac OSX both
 'snow' and 'multicore' (default) functionalities are
 available.}
 
-\item{...}{additional arguments to be passed to ga() function}
+\item{...}{additional arguments to be passed to the ga() function}
 }
 \description{
 Extract an active subnetwork using Genetic Algorithm scoring function optimisation
