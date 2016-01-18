@@ -24,3 +24,29 @@ graphRecall <- function(predicted, actual){
 
   tp/(tp + fn)
 }
+
+#' Compute jaccard similarity coefficient of two networks
+#'
+#' @param i     igraph object
+#' @param j     igraph object
+#' @param type  character value - "vertex" or"edge", indicating structures to be compared
+#' @export
+jaccardSimilarity <- function(i, j, type = "vertex"){
+  switch(type,
+    "vertex" = {igraph::vcount(igraph::graph.intersection(i,j, keep.all.vertices = FALSE)) / igraph::vcount(igraph::graph.union(i,j))},
+    "edge" = {igraph::ecount(igraph::graph.intersection(i,j, keep.all.vertices = FALSE)) / igraph::ecount(igraph::graph.union(i,j))}
+    )
+}
+
+#' Compute cosine similarity coefficient of two networks
+#'
+#' @param i     igraph object
+#' @param j     igraph object
+#' @param type  character value - "vertex" or"edge", indicating structures to be compared
+#' @export
+cosineSimilarity <- function(i,j, type = "vertex"){
+  switch(type,
+    "vertex" = {igraph::vcount(igraph::graph.intersection(i,j, keep.all.vertices = FALSE)) / sqrt(igraph::vcount(i) * igraph::vcount(j))},
+    "edge" = {igraph::ecount(igraph::graph.intersection(i,j, keep.all.vertices = FALSE)) / sqrt(igraph::ecount(i) * igraph::ecount(j))}
+    )
+}
