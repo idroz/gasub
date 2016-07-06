@@ -43,10 +43,8 @@ gaSubgraph <- function(graph, weights, activity.fun = .weight_fitness, run = 50,
   full.seed[ix] <- weights
 
   suggestions <- NULL
-  if(!is.null(suggestion.threshold)) suggestions <- as.numeric(full.seed >= suggestion.threshold)
+  if(!is.null(init.threshold)) suggestions <- as.numeric(full.seed >= init.threshold)
 
-
-  #GA <- GA::ga(type = "binary", fitness = activity.fun, G = graph, W = full.seed, nBits = igraph::vcount(graph), seed = 123, run = run, maxiter = maxiter, parallel = parallel, ...)
   GA <- ga(fitness = activity.fun, G = graph, W = full.seed, nBits = igraph::vcount(graph), seed = 123, run = run, maxiter = maxiter, parallel = parallel, suggestions = suggestions)
 
   sub.g <- igraph::induced_subgraph(graph, which(GA@solution[1,]==1))
