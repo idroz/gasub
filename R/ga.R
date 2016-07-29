@@ -35,7 +35,10 @@ ga <- function(fitness, ..., pop.size = 50, n.bits, max.iter = 20, run = 10, pmu
 
     cat("Iteration: ", n - 1, " | Fitness: ", meanscore[n], "\n")
 
-    if (sum(diff(meanscore) == 0) + 1 >= run) break
+    if (n > run){
+      if (sum(diff(meanscore[(n - (run - 1)) : n])) == 0)
+      break
+    }
   }
 
   stopCluster(cl)
