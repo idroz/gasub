@@ -10,7 +10,7 @@
 #'                          is halted.
 #' @export
 
-gaSubgraph <- function(graph, weights, run = 50, max.iter = 100000){
+gaSubgraph <- function(graph, weights, ...){
 
   # Only keep seed nodes that are present in the graph
   weights <- weights[ names(weights) %in% V(graph)$name ]
@@ -29,7 +29,7 @@ gaSubgraph <- function(graph, weights, run = 50, max.iter = 100000){
 
 
 
-  GA <- ga(fitness, G = graph, W = full.seed, n.bits = vcount(graph), pop.size = 30, max.iter = max.iter, run = run, seed = 123)
+  GA <- ga(fitness, G = graph, W = full.seed, n.bits = vcount(graph), ...)
 
   sub.g <- induced_subgraph(graph, which(GA$population[which.max(GA$fitness), ] == 1))
 

@@ -1,7 +1,7 @@
 #' Simple implementation of a binary Genetic Algorithm
 #' @export
 #' @importFrom parallel makeCluster parApply stopCluster
-ga <- function(fitness, ..., pop.size = 50, n.bits, max.iter = 20, run = 10, pmutation = 0.01, eletism = 2, seed = 123){
+ga <- function(fitness, ..., pop.size = 50, n.bits, max.iter = 20, run = 10, p.mutation = 0.01, eletism = 2, seed = 123){
   set.seed(123)
   cl <- makeCluster(4)
   population <- matrix(rbinom(pop.size * n.bits, 1, 0.5), ncol = n.bits, nrow = pop.size)
@@ -30,13 +30,19 @@ ga <- function(fitness, ..., pop.size = 50, n.bits, max.iter = 20, run = 10, pmu
     Crossover <- apply(mating, 1, function(x) crossover(population[x[1], ], population[x[2], ]))
     population[mating[, 1], ]  <- t(Crossover)
 
+    # Mutation
+    idx <- which(runif(max = 1, min = 0, n = pop.size) < p.mutation)
+    mutation <- sample(1:n.bits, 1)
+    population[idx, mutation] <- as.numeric(!(population[idx, mutation]))
+
+
     # Eletism
     population[ordered[1:eletism], ] <- elites
 
     cat("Iteration: ", n - 1, " | Fitness: ", meanscore[n], "\n")
 
     if (n > run){
-      if (sum(diff(meanscore[(n - (run - 1)) : n])) == 0)
+      if (length(rle(meanscore[(n - (run - 1)) : n])$values) == 1)
       break
     }
   }
