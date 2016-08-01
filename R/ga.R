@@ -32,7 +32,7 @@ ga <- function(fitness, ..., pop.size = 50, n.bits, max.iter = 20, run = 10, p.m
 
     # Mutation
     idx <- which(runif(max = 1, min = 0, n = pop.size) < p.mutation)
-    mutation <- sample(1:n.bits, 1)
+    mutation <- sample(1:n.bits, length(idx))
     population[idx, mutation] <- as.numeric(!(population[idx, mutation]))
 
 
