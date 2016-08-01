@@ -6,14 +6,14 @@ ga <- function(fitness, ..., pop.size = 50, n.bits, max.iter = 20, run = 10, p.m
   cl <- makeCluster(4)
   population <- matrix(rbinom(pop.size * n.bits, 1, 0.5), ncol = n.bits, nrow = pop.size)
 
-  meanscore <- vector()
+  maxscore <- vector()
 
   for (n in 1:(max.iter + 1)){
     score <- do.call(parApply, args = list(cl = cl, X = population, MARGIN = 1, FUN = fitness, ...))
     ordered <- order(score, decreasing = TRUE)
     elites <- population[ordered[1 : eletism], ]
 
-    meanscore[n] <- mean(score)
+    maxscore[n] <- max(score)
 
     # Selection
     prob <- abs(score) / sum(abs(score))
@@ -39,16 +39,16 @@ ga <- function(fitness, ..., pop.size = 50, n.bits, max.iter = 20, run = 10, p.m
     # Eletism
     population[ordered[1:eletism], ] <- elites
 
-    cat("Iteration: ", n - 1, " | Fitness: ", meanscore[n], "\n")
+    cat("Iteration: ", n - 1, " | Fitness: ", maxscore[n], "\n")
 
     if (n > run){
-      if (length(rle(meanscore[(n - (run - 1)) : n])$values) == 1)
+      if (length(rle(maxscore[(n - (run - 1)) : n])$values) == 1)
       break
     }
   }
 
   stopCluster(cl)
-  res <- list(population = population, fitness = score, improvement = meanscore)
+  res <- list(population = population, fitness = score, improvement = maxscore)
 
   return(res)
 }
