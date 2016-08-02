@@ -27,7 +27,8 @@ Genetic <- function(graph, weights, pop.size = 75, max.iter = 1000, run = 20,
 
 
   optionsfile <- paste0(getwd(), "/opts.json")
-  outfile <- paste0(getwd(), "/out.csv")
+  popfile <- paste0(getwd(), "/population.csv")
+  fitnessfile <- paste0(getwd(), "/fitness.csv")
 
   fileConn<-file(optionsfile)
   writeLines(toJSON(options, auto_unbox = TRUE), fileConn)
@@ -35,13 +36,16 @@ Genetic <- function(graph, weights, pop.size = 75, max.iter = 1000, run = 20,
 
   Genetic <- system.file("julia", "Genetic.jl", package = "gasub")
 
-  system(paste0("julia ", Genetic, " ", optionsfile, " ", outfile))
+  system(paste0("julia ", Genetic, " ", optionsfile, " ", popfile, " ", fitnessfile))
 
-  pop <- read.csv("out.csv", header = FALSE)
+  pop <- read.csv("population.csv", header = FALSE)
+  fitness <- as.matrix(read.csv("fitness.csv", header = FALSE))
 
   unlink(optionsfile)
-  unlink(outfile)
+  unlink(popfile)
+  unlink(fitnessfile)
 
-  return(pop)
+  res <- structure(list(population = pop, fitness = fitness), class = "GA")
+  return(res)
 
 }

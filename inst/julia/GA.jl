@@ -6,13 +6,16 @@ function GA(graph, weights, popsize, maxiter, run, eletism, pmutation)
   score = Array{Float64}(popsize)
 
   plateau = 1
-  generation = 1
+  generation = 0
 
 
   while plateau != 0
+
     if(generation > maxiter)
       break
     end
+
+    generation += 1
 
     for i = 1:popsize
       score[i] = Fitness(graph, weights, population[i,:])
@@ -54,9 +57,8 @@ function GA(graph, weights, popsize, maxiter, run, eletism, pmutation)
       plateau = maximum(latest) - minimum(latest)
     end
 
-    generation += 1
   end
 
 
-  Dict("population" => population, "fitness" => score)
+  Dict("population" => population, "generationfitness" => maxscore[1:(generation)], "populationfitness" => score)
 end

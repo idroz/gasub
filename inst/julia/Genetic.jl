@@ -13,7 +13,8 @@ include("Fitness.jl")
 include("GA.jl")
 
 filename = ARGS[1]
-outname = ARGS[2]
+popoutname = ARGS[2]
+fitnessoutname = ARGS[3]
 
 json = ReadOptions(filename)
 graph = InitGraph(json)
@@ -22,10 +23,12 @@ params = InitParameters(json)
 
 res = GA(graph, weights, params[1], params[4], params[5], params[3], params[2])
 
-score = res["fitness"]
+score = res["populationfitness"]
 bestpop = find(score .== maximum(score))[1]
 
 population = res["population"]
 best = population[bestpop, :]
+fitness = res["generationfitness"]
 
-writedlm(outname, best, ", ")
+writedlm(popoutname, best, ", ")
+writedlm(fitnessoutname, fitness, ", ")
