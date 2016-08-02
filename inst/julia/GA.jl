@@ -1,12 +1,18 @@
-function GA(graph, weights, popsize, maxiter, eletism, pmutation)
+function GA(graph, weights, popsize, maxiter, run, eletism, pmutation)
 
   nbits = nv(graph)
   population = InitPopulation(popsize, nbits)
   maxscore = zeros(maxiter, 1)
   score = Array{Float64}(popsize)
 
+  plateau = 1
+  generation = 1
 
-  for n = 1:maxiter
+
+  while plateau != 0
+    if(generation > maxiter)
+      break
+    end
 
     for i = 1:popsize
       score[i] = Fitness(graph, weights, population[i,:])
@@ -15,8 +21,7 @@ function GA(graph, weights, popsize, maxiter, eletism, pmutation)
     ordered = sortperm(score, rev = true)
     elites = population[ordered[1:eletism], :]
 
-    f = maxscore[n] = maximum(score)
-
+    f = maxscore[generation] = maximum(score)
 
     # Selection
     prob =  abs(score) ./ sum(abs(score))
@@ -31,6 +36,7 @@ function GA(graph, weights, popsize, maxiter, eletism, pmutation)
     for i=1:nmating
       crossover[i,:] = Crossover(population[mating[i, 1], :], population[mating[i, 2], :])
     end
+
     population[mating[:, 1], :] = crossover
 
     # Mutation
@@ -41,7 +47,14 @@ function GA(graph, weights, popsize, maxiter, eletism, pmutation)
     # Eletism
     population[ordered[1:eletism],:] = elites
 
-    println("Iteration: $n | Fitness: $f")
+    println("Iteration: $generation | Fitness: $f")
+
+    if generation >= run
+      latest = maxscore[generation:-1:(generation-(run-1))]
+      plateau = maximum(latest) - minimum(latest)
+    end
+
+    generation += 1
   end
 
 

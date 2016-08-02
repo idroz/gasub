@@ -20,7 +20,7 @@ graph = InitGraph(json)
 weights = InitWeights(json)
 params = InitParameters(json)
 
-res = GA(graph, weights, params[1], params[4], params[3], params[2])
+res = GA(graph, weights, params[1], params[4], params[5], params[3], params[2])
 
 score = res["fitness"]
 bestpop = find(score .== maximum(score))[1]
