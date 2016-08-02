@@ -1,16 +1,14 @@
 Package: gasub
 Title: R package for extraction of active subnetworks using a global search
     algorithm
-Version: 0.0.0.91
+Version: 0.0.0.92
 Authors@R: person("Ignat", "Drozdov", email = "idrozdov@beringresearch.com", role = c("aut", "cre"))
 Description: Perform unsupervised extraction of highly weighted subnetworks
 Copyright: Bering Limited
 Depends:
     R (>= 3.2.1)
 Imports:
-    igraph,
-    ggplot2,
-    parallel
+    igraph, jsonlite
 License: Apache License (== 2.0)
 LazyData: true
 RoxygenNote: 5.0.1

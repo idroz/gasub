@@ -4,7 +4,7 @@
 #' @param actual    igraph object
 #' @export
 
-graphPrecision <- function(predicted, actual){
+GraphPrecision <- function(predicted, actual){
 
   tp <- igraph::ecount(igraph::graph.intersection(actual, predicted, keep.all.vertices = FALSE))
   fp <- igraph::ecount(igraph::graph.difference(predicted, actual))
@@ -18,7 +18,7 @@ graphPrecision <- function(predicted, actual){
 #' @param actual    igraph object
 #' @export
 
-graphRecall <- function(predicted, actual){
+GraphRecall <- function(predicted, actual){
   tp <- igraph::ecount(igraph::graph.intersection(actual, predicted, keep.all.vertices = FALSE))
   fn <- igraph::ecount(igraph::graph.difference(actual, predicted))
 
@@ -31,7 +31,7 @@ graphRecall <- function(predicted, actual){
 #' @param j     igraph object
 #' @param type  character value - "vertex" or"edge", indicating structures to be compared
 #' @export
-jaccardSimilarity <- function(i, j, type = "vertex"){
+JaccardSimilarity <- function(i, j, type = "vertex"){
   switch(type,
     "vertex" = {igraph::vcount(igraph::graph.intersection(i,j, keep.all.vertices = FALSE)) / igraph::vcount(igraph::graph.union(i,j))},
     "edge" = {igraph::ecount(igraph::graph.intersection(i,j, keep.all.vertices = FALSE)) / igraph::ecount(igraph::graph.union(i,j))}
@@ -44,7 +44,7 @@ jaccardSimilarity <- function(i, j, type = "vertex"){
 #' @param j     igraph object
 #' @param type  character value - "vertex" or"edge", indicating structures to be compared
 #' @export
-cosineSimilarity <- function(i,j, type = "vertex"){
+CosineSimilarity <- function(i,j, type = "vertex"){
   switch(type,
     "vertex" = {igraph::vcount(igraph::graph.intersection(i,j, keep.all.vertices = FALSE)) / sqrt(igraph::vcount(i) * igraph::vcount(j))},
     "edge" = {igraph::ecount(igraph::graph.intersection(i,j, keep.all.vertices = FALSE)) / sqrt(igraph::ecount(i) * igraph::ecount(j))}
