@@ -44,8 +44,10 @@ function GA(graph, weights, popsize, maxiter, run, eletism, pmutation)
 
     # Mutation
     idx = find(rand(Uniform(), popsize) .< pmutation)
-    mutation = sample(1:nbits, length(idx))
-    population[idx, mutation] = abs(population[idx, mutation]-1)
+    if length(idx) != 0
+      mutation = sample(1:nbits, length(idx))
+      population[idx, mutation] = abs(population[idx, mutation]-1)
+    end
 
     # Eletism
     population[ordered[1:eletism],:] = elites
