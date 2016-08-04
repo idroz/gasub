@@ -4,12 +4,12 @@
 \alias{GraphRecall}
 \title{Compute network recall}
 \usage{
-GraphRecall(predicted, actual)
+GraphRecall(actual, predicted)
 }
 \arguments{
-\item{predicted}{igraph object}
-
 \item{actual}{igraph object}
+
+\item{predicted}{igraph object}
 }
 \description{
 Compute network recall

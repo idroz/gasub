@@ -4,12 +4,12 @@
 \alias{GraphPrecision}
 \title{Compute network precision}
 \usage{
-GraphPrecision(predicted, actual)
+GraphPrecision(actual, predicted)
 }
 \arguments{
-\item{predicted}{igraph object}
-
 \item{actual}{igraph object}
+
+\item{predicted}{igraph object}
 }
 \description{
 Compute network precision

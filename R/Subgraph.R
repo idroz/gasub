@@ -7,12 +7,16 @@
 #' @param p.mutation  float. Probability of mutation
 #' @param eletism     integer
 #'
-#' @importFrom igraph get.edgelist
+#' @importFrom igraph get.edgelist vcount
 #' @importFrom jsonlite toJSON
 #' @export
 
-Genetic <- function(graph, weights, pop.size = 50, max.iter = 100, run = max.iter,
+Subgraph <- function(graph, weights, pop.size = 50, max.iter = 100, run = vcount(graph),
                     p.mutation = 0.1, eletism = max(1, round(pop.size * 0.05))){
+
+  # Error checking
+  if (length(weights) != vcount(graph)) stop("length(weights) must be equal to number of graph nodes")
+  if (p.mutation < 0 | p.mutation > 1) stop("Mutation probability must be 0-1")
 
   # Generate a json file using input options
   options <- list()
@@ -34,7 +38,7 @@ Genetic <- function(graph, weights, pop.size = 50, max.iter = 100, run = max.ite
   writeLines(toJSON(options, auto_unbox = TRUE), fileConn)
   close(fileConn)
 
-  Genetic <- system.file("julia", "Genetic.jl", package = "gasub")
+  Genetic <- system.file("julia", "Subgraph.jl", package = "gasub")
 
   system(paste0("julia ", Genetic, " ", optionsfile, " ", popfile, " ", fitnessfile))
 

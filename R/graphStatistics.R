@@ -1,10 +1,10 @@
 #' Compute network precision
 #'
-#' @param predicted igraph object
 #' @param actual    igraph object
+#' @param predicted igraph object
 #' @export
 
-GraphPrecision <- function(predicted, actual){
+GraphPrecision <- function(actual, predicted){
 
   tp <- igraph::ecount(igraph::graph.intersection(actual, predicted, keep.all.vertices = FALSE))
   fp <- igraph::ecount(igraph::graph.difference(predicted, actual))
@@ -14,11 +14,11 @@ GraphPrecision <- function(predicted, actual){
 
 #' Compute network recall
 #'
-#' @param predicted igraph object
 #' @param actual    igraph object
+#' @param predicted igraph object
 #' @export
 
-GraphRecall <- function(predicted, actual){
+GraphRecall <- function(actual, predicted){
   tp <- igraph::ecount(igraph::graph.intersection(actual, predicted, keep.all.vertices = FALSE))
   fn <- igraph::ecount(igraph::graph.difference(actual, predicted))
 
