@@ -11,7 +11,7 @@ function GA(graph, weights, popsize, maxiter, run, eletism, pmutation)
 
   while plateau != 0
 
-    if(generation > maxiter)
+    if(generation == maxiter)
       break
     end
 
@@ -33,7 +33,7 @@ function GA(graph, weights, popsize, maxiter, run, eletism, pmutation)
 
     # Crossover
     nmating = Int(floor(popsize/2))
-    mating = reshape(sample(1:popsize, popsize, replace = false), nmating, 2)
+    mating = reshape(sample(1:nmating * 2, nmating * 2, replace = false), nmating, 2)
     crossover = Array{Int64}(nmating, nbits)
 
     for i=1:nmating
