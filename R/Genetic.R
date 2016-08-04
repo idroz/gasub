@@ -11,8 +11,8 @@
 #' @importFrom jsonlite toJSON
 #' @export
 
-Genetic <- function(graph, weights, pop.size = 75, max.iter = 1000, run = 20,
-                    p.mutation = 0.01, eletism = 1){
+Genetic <- function(graph, weights, pop.size = 50, max.iter = 100, run = max.iter,
+                    p.mutation = 0.1, eletism = max(1, round(pop.size * 0.05))){
 
   # Generate a json file using input options
   options <- list()
