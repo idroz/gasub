@@ -1,4 +1,4 @@
-function GA(graph, weights, popsize, maxiter, run, eletism, pmutation)
+function GA(graph, weights, popsize, maxiter, run, eletism, pmutation, cores)
 
   nbits = nv(graph)
   population = InitPopulation(popsize, nbits)
@@ -11,14 +11,14 @@ function GA(graph, weights, popsize, maxiter, run, eletism, pmutation)
 
   while plateau != 0
 
-    if(generation == maxiter)
+    if generation == maxiter
       break
     end
 
     generation += 1
 
-    for i = 1:popsize
-      score[i] = Fitness(graph, weights, population[i,:])
+    score = @parallel (vcat) for i = 1:popsize
+      Fitness(graph, weights, population[i,:])
     end
 
     ordered = sortperm(score, rev = true)

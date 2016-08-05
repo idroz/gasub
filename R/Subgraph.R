@@ -6,13 +6,14 @@
 #' @param run         integer
 #' @param p.mutation  float. Probability of mutation
 #' @param eletism     integer
+#' @param ncores      integer
 #'
 #' @importFrom igraph get.edgelist vcount
 #' @importFrom jsonlite toJSON
 #' @export
 
 Subgraph <- function(graph, weights, pop.size = 50, max.iter = 100, run = vcount(graph),
-                    p.mutation = 0.1, eletism = max(1, round(pop.size * 0.05))){
+                    p.mutation = 0.1, eletism = max(1, round(pop.size * 0.05)), ncores){
 
   # Error checking
   if (length(weights) != vcount(graph)) stop("length(weights) must be equal to number of graph nodes")
@@ -28,6 +29,7 @@ Subgraph <- function(graph, weights, pop.size = 50, max.iter = 100, run = vcount
   options$eletism <- eletism
   options$maxiter <- max.iter
   options$run <- run
+  options$ncores <- ncores
 
 
   optionsfile <- paste0(getwd(), "/opts.json")
@@ -40,7 +42,7 @@ Subgraph <- function(graph, weights, pop.size = 50, max.iter = 100, run = vcount
 
   Genetic <- system.file("julia", "Subgraph.jl", package = "gasub")
 
-  system(paste0("julia ", Genetic, " ", optionsfile, " ", popfile, " ", fitnessfile))
+  system(paste0("julia -p", ncores," ", Genetic, " ", optionsfile, " ", popfile, " ", fitnessfile))
 
   pop <- read.csv("population.csv", header = FALSE)
   fitness <- as.matrix(read.csv("fitness.csv", header = FALSE))

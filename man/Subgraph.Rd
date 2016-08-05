@@ -6,7 +6,7 @@
 \usage{
 Subgraph(graph, weights, pop.size = 50, max.iter = 100,
   run = vcount(graph), p.mutation = 0.1, eletism = max(1, round(pop.size *
-  0.05)))
+  0.05)), ncores)
 }
 \arguments{
 \item{graph}{igraph object}
@@ -22,6 +22,8 @@ Subgraph(graph, weights, pop.size = 50, max.iter = 100,
 \item{p.mutation}{float. Probability of mutation}
 
 \item{eletism}{integer}
+
+\item{ncores}{integer}
 }
 \description{
 Use genetic algorithm to identify maximally scoring subgraph

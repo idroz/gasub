@@ -1,4 +1,4 @@
-function Fitness(graph, weights, permutation)
+@everywhere function Fitness(graph, weights, permutation)
   index = find(permutation .== 1)
   subg = induced_subgraph(graph, index)
   subweights = weights[index]

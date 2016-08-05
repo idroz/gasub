@@ -1,11 +1,12 @@
 using Distributions
 using JSON
-using LightGraphs
+import LightGraphs; @everywhere using LightGraphs
 
 include("ReadOptions.jl")
 include("InitGraph.jl")
 include("InitWeights.jl")
 include("InitParameters.jl")
+
 
 include("InitPopulation.jl")
 include("Crossover.jl")
@@ -21,7 +22,7 @@ graph = InitGraph(json)
 weights = InitWeights(json)
 params = InitParameters(json)
 
-res = GA(graph, weights, params[1], params[4], params[5], params[3], params[2])
+res = GA(graph, weights, params[1], params[4], params[5], params[3], params[2], params[6])
 
 score = res["populationfitness"]
 bestpop = find(score .== maximum(score))[1]
