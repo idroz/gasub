@@ -1,13 +1,14 @@
 function GA(graph, weights, popsize, maxiter, run, eletism, pmutation, cores)
 
+  srand(1234)
+
   nbits = nv(graph)
   population = InitPopulation(popsize, nbits)
   maxscore = zeros(maxiter, 1)
   score = Array{Float64}(popsize)
 
-  plateau = 1
-  generation = 0
-
+  plateau = one(eltype(maxiter))
+  generation = zero(eltype(maxiter))
 
   while plateau != 0
 
