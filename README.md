@@ -14,6 +14,8 @@ Additionally, the following Julia packages are required:
 Pkg.add("Distributions")
 Pkg.add("JSON")
 Pkg.add("LightGraphs")
+
+Pkg.update()
 ```
 
 ### Installing the R package
