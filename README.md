@@ -2,9 +2,24 @@
 R package for extraction of active subnetworks using a global search algorithm
 
 ## Installation
+
+The package has been tested on OSX and Unix systems.
+
+### Installing [Julia](http://julialang.org/downloads/)
+Computationally intensive tasks of GASUB are implemented in Julia. Currently, the package requires Julia v0.4.6
+
+Additionally, the following packages need to be installed:
+
 ```
-library(devtools)
-install_git("https://github.com/idroz/gasub")
+Pkg.add("Distributions")
+Pkg.add("JSON")
+Pkg.add("LightGraphs")
+```
+
+### Installing the R package
+
+```
+devtools::install_git("https://github.com/idroz/gasub")
 ```
 
 ## Usage
@@ -19,8 +34,9 @@ weights <- runif(n = vcount(g), min = 0, max = 1)
 seed <- weights
 names(seed) <- V(g)$name
 
-ga <- gaSubgraph(g, weights = seed, parallel = 4)
+ga <- Subgraph(g, weights = seed)
 
-ggnet(ga)
+subgraph <- delete.vertices(g, which(ga$population == 0)
 
+plot(subgraph)
 ```
