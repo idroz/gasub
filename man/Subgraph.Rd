@@ -6,7 +6,7 @@
 \usage{
 Subgraph(graph, weights, pop.size = 50, max.iter = 100,
   run = vcount(graph), p.mutation = 0.1, eletism = max(1, round(pop.size *
-  0.05)), ncores)
+  0.05)), ncores = 1)
 }
 \arguments{
 \item{graph}{a named igraph object}

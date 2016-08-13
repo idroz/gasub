@@ -34,7 +34,7 @@ names(weights) <- V(g)$name
 
 ga <- Subgraph(g, weights)
 
-subgraph <- delete.vertices(g, which(ga$population == 0)
+subgraph <- delete.vertices(g, which(ga$population == 0))
 
 plot(subgraph)
 ```
