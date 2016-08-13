@@ -9,9 +9,9 @@ Subgraph(graph, weights, pop.size = 50, max.iter = 100,
   0.05)), ncores)
 }
 \arguments{
-\item{graph}{igraph object}
+\item{graph}{a named igraph object}
 
-\item{weights}{numeric vector}
+\item{weights}{a named numeric vector}
 
 \item{pop.size}{integer}
 

@@ -1,6 +1,6 @@
 #' Use genetic algorithm to identify maximally scoring subgraph
-#' @param graph       igraph object
-#' @param weights     numeric vector
+#' @param graph       a named igraph object
+#' @param weights     a named numeric vector
 #' @param pop.size    integer
 #' @param max.iter    integer
 #' @param run         integer
@@ -18,6 +18,9 @@ Subgraph <- function(graph, weights, pop.size = 50, max.iter = 100, run = vcount
   # Error checking
   if (length(weights) != vcount(graph)) stop("length(weights) must be equal to number of graph nodes")
   if (p.mutation < 0 | p.mutation > 1) stop("Mutation probability must be 0-1")
+
+  if (is.null (V(graph)$name)) stop("graph object must have a non-empthy V(graph)$name attribute")
+  if (is.null (names(weights))) stop("weights must be a named vector")
 
   # Generate a json file using input options
   options <- list()
