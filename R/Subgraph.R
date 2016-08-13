@@ -13,7 +13,7 @@
 #' @export
 
 Subgraph <- function(graph, weights, pop.size = 50, max.iter = 100, run = vcount(graph),
-                    p.mutation = 0.1, eletism = max(1, round(pop.size * 0.05)), ncores){
+                    p.mutation = 0.1, eletism = max(1, round(pop.size * 0.05)), ncores = 1){
 
   # Error checking
   if (length(weights) != vcount(graph)) stop("length(weights) must be equal to number of graph nodes")
