@@ -8,7 +8,7 @@ The package has been tested on OSX and Unix systems.
 ### Installing [Julia](http://julialang.org/downloads/)
 Computationally intensive tasks of GASUB are implemented in Julia. Currently, the package requires Julia v0.4.6
 
-Additionally, the following packages need to be installed:
+Additionally, the following Julia packages are required:
 
 ```
 Pkg.add("Distributions")
