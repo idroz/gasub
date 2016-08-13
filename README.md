@@ -30,11 +30,9 @@ library(igraph)
 g <- graph.lattice(dimvector = c(5,6))
 V(g)$name <- seq_len(vcount(g))
 weights <- runif(n = vcount(g), min = 0, max = 1)
+names(weights) <- V(g)$name
 
-seed <- weights
-names(seed) <- V(g)$name
-
-ga <- Subgraph(g, weights = seed)
+ga <- Subgraph(g, weights)
 
 subgraph <- delete.vertices(g, which(ga$population == 0)
 
