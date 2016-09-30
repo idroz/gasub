@@ -4,7 +4,6 @@ function InitParameters(json)
   eletism = json["eletism"]
   maxiter = json["maxiter"]
   run = json["run"]
-  ncores = json["ncores"]
 
   params = Array{Any}(1,6)
 
