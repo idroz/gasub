@@ -1,27 +1,52 @@
 library(gasub)
 library(igraph)
-library(jsonlite)
+library(microbenchmark)
 
-g <- barabasi.game(n = 100, m = 1, power = 0.1, directed = FALSE)
-vertexlist <- as.character(1:vcount(g))
-V(g)$name <- vertexlist
-weights <- runif(vcount(g))
+g <- erdos.renyi.game(1000, 1/250)
+V(g)$name <- as.character(seq_len(vcount(g)))
+clusters <- fastgreedy.community(g)
 
-# Create a target subgraph
-c <- fastgreedy.community(g)
-idx <- which(membership(c) == 1)
-actual.graph <- induced_subgraph(g, idx)
-actual.vertexlist <- vertexlist[idx]
+weight <- runif(n = vcount(g), min = 0, max = 1)
+selection <- sample(size = round(0.25 * length(groups(clusters))), x = 1:length(groups(clusters)))
+idx <- which(clusters$membership %in% selection)
+weight[idx] <- runif(n = length(idx), min = 0, max = 0.05)
+weight <- -log10(weight)
+names(weight) <- V(g)$name
+V(g)$weight <- weight
 
-# Assign smaller weights to nodes in the target subgraph
-weights[idx] <- runif(length(idx), min = 0, max = 0.001)
-weights <- -log10(weights)
+# Create a gold-standard subgraph
+actual <- induced.subgraph(g, idx)
 
-pop <- Genetic(g, weights, pop.size = 76, eletism = 2)
+ga <- Subgraph(g, weight, max.iter = 100000, ncores = 2)
+subg <- induced.subgraph(g, which(ga$population == 1))
 
-subg <- induced_subgraph(g, which(pop == 1))
-V(subg)$name <- vertexlist[which(pop == 1)]
-V(actual.graph)$name <- actual.vertexlist
+GraphPrecision(actual, subg)
+GraphRecall(actual, subg)
 
-GraphPrecision(actual.graph, subg)
-GraphRecall(actual.graph, subg)
+#----------Micro benchmarking
+
+nnodes <- c(2000)
+mb <- list()
+
+for (i in 1:length(nnodes)){
+  print(i)
+  g <- erdos.renyi.game(nnodes[i], 1/2000)
+  V(g)$name <- as.character(seq_len(vcount(g)))
+  clusters <- fastgreedy.community(g)
+
+  weight <- runif(n = vcount(g), min = 0, max = 1)
+  selection <- sample(size = round(0.25 * length(groups(clusters))), x = 1:length(groups(clusters)))
+  idx <- which(clusters$membership %in% selection)
+  weight[idx] <- runif(n = length(idx), min = 0, max = 0.05)
+  weight <- -log10(weight)
+  names(weight) <- V(g)$name
+  V(g)$weight <- weight
+
+  mb[[i]] <- microbenchmark(Subgraph(g, weight, max.iter = 100000, ncores = 1),
+                     Subgraph(g, weight, max.iter = 100000, ncores = 2),
+                     Subgraph(g, weight, max.iter = 100000, ncores = 3),
+                     Subgraph(g, weight, max.iter = 100000, ncores = 4), times = 3)
+
+}
+
+boxplot(mb[[1]])

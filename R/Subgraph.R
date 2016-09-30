@@ -13,7 +13,7 @@
 #' @export
 
 Subgraph <- function(graph, weights, pop.size = 50, max.iter = 100, run = vcount(graph),
-                    p.mutation = 0.1, eletism = max(1, round(pop.size * 0.05)), ncores = 1){
+                    p.mutation = 0.1, eletism = max(1, round(pop.size * 0.05)), ncores = 1, detail = FALSE){
 
   # Error checking
   if (length(weights) != vcount(graph)) stop("length(weights) must be equal to number of graph nodes")
@@ -33,6 +33,7 @@ Subgraph <- function(graph, weights, pop.size = 50, max.iter = 100, run = vcount
   options$maxiter <- max.iter
   options$run <- run
   options$ncores <- ncores
+  options$detail <- detail
 
 
   optionsfile <- paste0(getwd(), "/opts.json")
@@ -49,12 +50,18 @@ Subgraph <- function(graph, weights, pop.size = 50, max.iter = 100, run = vcount
 
   pop <- read.csv("population.csv", header = FALSE)
   fitness <- as.matrix(read.csv("fitness.csv", header = FALSE))
+  iterations <- matrix()
+
+  if(detail){
+    iterations <- read.csv("iterations.csv", header = FALSE)
+    unlink("iterations.csv")
+  }
 
   unlink(optionsfile)
   unlink(popfile)
   unlink(fitnessfile)
 
-  res <- structure(list(population = pop, fitness = fitness), class = "GA")
+  res <- structure(list(population = pop, fitness = fitness, iterations = iterations), class = "GA")
   return(res)
 
 }
